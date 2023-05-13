@@ -405,7 +405,6 @@ class LiveEntity(PlayableCard, Entity):
 	has_deathrattle = boolean_property("has_deathrattle")
 	atk = int_property("atk")
 	cant_be_damaged = boolean_property("cant_be_damaged")
-	immune_while_attacking = slot_property("immune_while_attacking")
 	incoming_damage_multiplier = int_property("incoming_damage_multiplier")
 	max_health = int_property("max_health")
 
@@ -427,8 +426,6 @@ class LiveEntity(PlayableCard, Entity):
 
 	@property
 	def immune(self):
-		if self.immune_while_attacking and self.attacking:
-			return True
 		return self.cant_be_damaged
 
 	@property

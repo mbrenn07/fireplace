@@ -71,7 +71,6 @@ FORGETFUL = Attack(SELF).on(
 )
 
 AT_MAX_MANA = lambda s: MANA(s) == 10
-CHECK_CTHUN = ATK(HIGHEST_ATK(CTHUN)) >= 10
 
 
 class JoustHelper(Evaluator):

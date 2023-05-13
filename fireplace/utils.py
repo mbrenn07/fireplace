@@ -93,6 +93,14 @@ def random_draft(card_class: CardClass, exclude=[]):
 		if deck.count(card.id) < card.max_count_in_deck:
 			deck.append(card.id)
 
+	print("""
+	
+	
+	DECK
+	
+	
+	""")
+	print(deck)
 	return deck
 
 

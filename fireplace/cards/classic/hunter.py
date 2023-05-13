@@ -208,8 +208,6 @@ class EX1_611e:
 
 class DS1_188:
 	"""Gladiator's Longbow"""
-	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING: True})
-
 
 class EX1_536:
 	"""Eaglehorn Bow"""

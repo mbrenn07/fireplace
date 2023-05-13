@@ -195,7 +195,6 @@ CARD_ATTRIBUTE_MAP = {
 	GameTag.IGNORE_TAUNT: "ignore_taunt",
 	GameTag.INCOMING_DAMAGE_MULTIPLIER: "incoming_damage_multiplier",
 	GameTag.ImmuneToSpellpower: "immune_to_spellpower",
-	GameTag.IMMUNE_WHILE_ATTACKING: "immune_while_attacking",
 	GameTag.INSPIRE: "has_inspire",
 	GameTag.MULTI_CLASS_GROUP: "multi_class_group",
 	GameTag.NUM_ATTACKS_THIS_TURN: "num_attacks",

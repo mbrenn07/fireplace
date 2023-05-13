@@ -1,8 +1,13 @@
 import logging
-import requests
-import json
 
-NUM_BUFFERED_MESSAGES = 999999; 
+playedGames = []
+playedActions = []
+
+def clearPlayedGames():
+	playedGames.clear()
+
+def clearPlayedActions():
+	playedActions.clear()
 
 class RequestsHandler(logging.Handler): 
 	messageBuffer = []
@@ -10,11 +15,10 @@ class RequestsHandler(logging.Handler):
 	def emit(self, record):
 		data = {'message': record.msg, 'arguments': str(record.args), 'formatted': self.format(record)} 
 		self.messageBuffer.append(data)
-		if (len(self.messageBuffer) >= NUM_BUFFERED_MESSAGES or record.msg == "Game completed normally."):
-			outgoingJSON = json.dumps(self.messageBuffer)
+		playedActions.append(data)
+		if (record.msg == "Game completed normally."):
+			playedGames.append(self.messageBuffer)
 			self.messageBuffer = []
-			return requests.post('https://c048f8fb-ce6b-4615-9f59-cca27d414531.mock.pstmn.io/gameLogging',
-			outgoingJSON, headers={"Content-type": "application/json"}).content
 
 
 def get_logger(name, level=logging.DEBUG):

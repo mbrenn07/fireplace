@@ -22,6 +22,52 @@ class CardDB(dict):
 		if cardscript is None:
 			cardscript = get_script_definition(id)
 
+		if (cardscript is None 
+      		and "HERO" not in id
+			and id != "CS2_121"
+			and id != "EX1_021"
+			and id != "EX1_023"
+			and id != "EX1_110"
+			and id != "EX1_390"
+			and id != "CS2_179"
+			and id != "CS2_tk1"
+			and id != "EX1_598"
+			and id != "skele21"
+			and id != "EX1_025t"
+			and id != "CS2_152"
+			and id != "CS2_mirror"
+			and id != "EX1_598"
+			and id != "EX1_506a"
+			and id != "EX1_614t"
+			and id != "EX1_584e"
+			and id != "EX1_398t"
+			and id != "PRO_001at"
+			and id != "EX1_116t"
+			and id != "NEW1_040t"
+			and id != "EX1_110t"
+			and id != "Mekka4t"
+			and id != "ds1_whelptoken"
+			and id != "CS2_boar"
+			and id != "EX1_tk29"
+			and id != "EX1_tk28"
+			and id != "NEW1_026t"
+			and id != "EX1_409t"
+			and id != "tt_010a"
+			and id != "CS2_022e"
+			and id != "EX1_246e"
+			and id != "EX1_345t"
+			and id != "GAME_006"
+			and id != "LOEA04_27"
+			and id != "Mekka4e"
+			and id != "NEW1_025e"
+			and id != "TU4c_005"
+			and id != "TU4c_007"
+			and id != "CS2_236e"
+			and id != "EX1_304e"
+			and id != "LOE_030e"
+			and id != "NEW1_018e"):
+			return None
+
 		if cardscript:
 			card.scripts = type(id, (cardscript, ), {})
 		else:
@@ -97,7 +143,9 @@ class CardDB(dict):
 		self.initialized = True
 		db, xml = cardxml.load(locale=locale)
 		for id, card in db.items():
-			self[id] = self.merge(id, card)
+			tempCard = self.merge(id, card)
+			if (tempCard != None):
+				self[id] = tempCard
 
 		log.info("Merged %i cards", len(self))
 
