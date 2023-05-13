@@ -8,8 +8,7 @@ class RequestsHandler(logging.Handler):
 	messageBuffer = []
 
 	def emit(self, record):
-		data = {'message': record.msg, 'arguments': str(record.args)} 
-		print(data)
+		data = {'message': record.msg, 'arguments': str(record.args), 'formatted': self.format(record)} 
 		self.messageBuffer.append(data)
 		if (len(self.messageBuffer) >= NUM_BUFFERED_MESSAGES or record.msg == "Game completed normally."):
 			outgoingJSON = json.dumps(self.messageBuffer)
