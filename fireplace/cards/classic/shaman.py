@@ -39,7 +39,7 @@ class CS2_042:
 	play = Hit(TARGET, 3)
 
 
-class EX1_258:
+class VAN_EX1_258:
 	"""Unbound Elemental"""
 	events = Play(CONTROLLER, OVERLOAD).on(Buff(SELF, "EX1_258e"))
 

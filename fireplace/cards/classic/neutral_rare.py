@@ -104,7 +104,7 @@ class EX1_089:
 	play = GainMana(OPPONENT, 1)
 
 
-class EX1_093:
+class VAN_EX1_093:
 	"""Defender of Argus"""
 	play = Buff(SELF_ADJACENT, "EX1_093e")
 

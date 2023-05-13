@@ -146,7 +146,7 @@ def test_duplicate_full_hand():
 
 def test_eaglehorn_bow():
 	game = prepare_game()
-	bow = game.player1.give("EX1_536e")
+	bow = game.player1.give("EX1_536")
 	icebarrier = game.player1.give("EX1_289")
 	bow.play()
 	assert bow.durability == 2
@@ -681,12 +681,12 @@ def test_snipe_druid_of_the_claw():
 	snipe.play()
 	game.end_turn()
 
-	druid = game.player2.give("EX1_165")
-	druid.play(choose="EX1_165b")
+	druid = game.player2.give("VAN_EX1_165")
+	druid.play(choose="VAN_EX1_165b")
 	assert snipe not in game.player1.secrets
 	assert len(game.player2.field) == 1
 	assert druid.morphed is game.player2.field[0]
-	assert druid.morphed.id == "EX1_165t2"
+	assert druid.morphed.id == "VAN_EX1_165t2"
 	assert druid.morphed.damage == 4
 	assert not druid.damage
 

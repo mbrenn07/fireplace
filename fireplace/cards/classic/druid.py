@@ -15,18 +15,26 @@ CS2_017o = buff(atk=1)
 ##
 # Minions
 
-class EX1_165:
+class VAN_EX1_165:
 	"""Druid of the Claw"""
-	choose = ("EX1_165a", "EX1_165b")
+	choose = ("VAN_EX1_165a", "VAN_EX1_165b")
 	play = ChooseBoth(CONTROLLER) & Morph(SELF, "OG_044a")
 
 
-class EX1_165a:
-	play = Morph(SELF, "EX1_165t1")
+class VAN_EX1_165a:
+	play = Morph(SELF, "VAN_EX1_165t1")
+	tags = {
+		GameTag.HEALTH: 4,
+		GameTag.ATK: 4,
+	}
 
 
-class EX1_165b:
-	play = Morph(SELF, "EX1_165t2")
+class VAN_EX1_165b:
+	play = Morph(SELF, "VAN_EX1_165t2")
+	tags = {
+		GameTag.HEALTH: 6,
+		GameTag.ATK: 4,
+	}
 
 
 class EX1_166:
@@ -205,7 +213,7 @@ class EX1_155b:
 EX1_155be = buff(health=4, taunt=True)
 
 
-class EX1_158:
+class VAN_EX1_158:
 	"""Soul of the Forest"""
 	play = Buff(FRIENDLY_MINIONS, "EX1_158e")
 

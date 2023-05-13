@@ -865,8 +865,8 @@ def test_conceal_alarmobot():
 
 def test_cruel_taskmaster():
 	game = prepare_game()
-	taskmaster1 = game.current_player.give("EX1_603")
-	taskmaster2 = game.current_player.give("EX1_603")
+	taskmaster1 = game.current_player.give("VAN_EX1_603")
+	taskmaster2 = game.current_player.give("VAN_EX1_603")
 	game.end_turn()
 	game.end_turn()
 
@@ -946,7 +946,7 @@ def test_deathwing():
 
 def test_defender_of_argus():
 	game = prepare_game()
-	defender1 = game.player1.give("EX1_093")
+	defender1 = game.player1.give("VAN_EX1_093")
 	assert defender1.atk == 2
 	assert defender1.health == 3
 	assert not defender1.taunt
@@ -957,7 +957,7 @@ def test_defender_of_argus():
 	game.end_turn()
 	game.end_turn()
 
-	defender2 = game.player1.give("EX1_093")
+	defender2 = game.player1.give("VAN_EX1_093")
 	defender2.play()
 	assert game.player1.field == [defender1, defender2]
 	assert defender1.atk == 2 + 1
@@ -966,7 +966,7 @@ def test_defender_of_argus():
 	game.end_turn()
 	game.end_turn()
 
-	defender3 = game.player1.give("EX1_093")
+	defender3 = game.player1.give("VAN_EX1_093")
 	defender3.play(index=1)
 	assert game.player1.field == [defender1, defender3, defender2]
 	assert defender1.atk == 2 + 1 + 1
@@ -1162,24 +1162,24 @@ def test_dread_corsair():
 
 def test_druid_of_the_claw():
 	game = prepare_game()
-	claw1 = game.current_player.give("EX1_165")
+	claw1 = game.current_player.give("VAN_EX1_165")
 	with pytest.raises(InvalidAction):
 		claw1.play()
-	claw1.play(choose="EX1_165a")
+	claw1.play(choose="VAN_EX1_165a")
 	assert len(game.current_player.field) == 1
 	claw_in_field1 = game.current_player.field[0]
-	assert claw_in_field1.id == "EX1_165t1"
+	assert claw_in_field1.id == "VAN_EX1_165t1"
 	assert claw_in_field1.atk == claw_in_field1.health == 4
 	assert claw_in_field1.charge
 	assert not claw_in_field1.taunt
 
-	claw2 = game.current_player.give("EX1_165")
+	claw2 = game.current_player.give("VAN_EX1_165")
 	with pytest.raises(InvalidAction):
 		claw2.play()
-	claw2.play(choose="EX1_165b")
+	claw2.play(choose="VAN_EX1_165b")
 	assert len(game.current_player.field) == 2
 	claw_in_field2 = game.current_player.field[1]
-	assert claw_in_field2.id == "EX1_165t2"
+	assert claw_in_field2.id == "VAN_EX1_165t2"
 	assert claw_in_field2.atk == 4
 	assert claw_in_field2.health == 6
 	assert claw_in_field2.taunt
@@ -1187,9 +1187,9 @@ def test_druid_of_the_claw():
 	game.end_turn()
 
 	game.current_player.summon(FANDRAL_STAGHELM)
-	claw3 = game.current_player.give("EX1_165")
+	claw3 = game.current_player.give("VAN_EX1_165")
 	with pytest.raises(InvalidAction):
-		claw3.play(choose="EX1_165a")
+		claw3.play(choose="VAN_EX1_165a")
 	claw3.play()
 	assert len(game.current_player.field) == 2
 	claw_in_field3 = game.current_player.field[1]
@@ -1776,7 +1776,7 @@ def test_injured_blademaster():
 
 def test_inner_fire():
 	game = prepare_game()
-	gurubashi = game.player1.give("EX1_399")
+	gurubashi = game.player1.give("VAN_EX1_399")
 	gurubashi.play()
 	assert gurubashi.atk == 2
 
@@ -1974,7 +1974,7 @@ def test_leeroy():
 
 def test_lightspawn():
 	game = prepare_game()
-	lightspawn = game.player1.give("EX1_335")
+	lightspawn = game.player1.give("VAN_EX1_335")
 	lightspawn.play()
 	assert lightspawn.health == 5
 	assert lightspawn.atk == 5
@@ -3535,7 +3535,7 @@ def test_twilight_drake():
 
 def test_unbound_elemental():
 	game = prepare_game()
-	unbound = game.player1.give("EX1_258")
+	unbound = game.player1.give("VAN_EX1_258")
 	unbound.play()
 	assert unbound.atk == 2
 	assert unbound.health == 4
@@ -3650,9 +3650,9 @@ def test_violet_teacher():
 
 def test_void_terror():
 	game = prepare_game()
-	terror1 = game.player1.give("EX1_304")
-	terror2 = game.player1.give("EX1_304")
-	terror3 = game.player1.give("EX1_304")
+	terror1 = game.player1.give("VAN_EX1_304")
+	terror2 = game.player1.give("VAN_EX1_304")
+	terror3 = game.player1.give("VAN_EX1_304")
 	power = game.player1.give("EX1_316")
 	terror1.play()
 	assert terror1.atk == 3

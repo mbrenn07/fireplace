@@ -57,12 +57,9 @@ class EX1_162:
 EX1_162o = buff(atk=1)
 
 
-class EX1_399:
+class VAN_EX1_399:
 	"""Gurubashi Berserker"""
 	events = SELF_DAMAGE.on(Buff(SELF, "EX1_399e"))
-	tags = {
-		GameTag.HEALTH: 7,
-	}
 
 
 EX1_399e = buff(atk=3)

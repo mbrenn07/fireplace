@@ -13,7 +13,7 @@ def test_auchenai_soulpriest():
 
 def test_auchenai_soulpriest_divine_shield():
 	game = prepare_game(CardClass.PRIEST, CardClass.PRIEST)
-	gurubashi = game.player1.summon("EX1_399")
+	gurubashi = game.player1.summon("VAN_EX1_399")
 	auchenai = game.player1.give("EX1_591")
 	auchenai.play()
 	game.player1.give(HAND_OF_PROTECTION).play(target=gurubashi)

@@ -263,7 +263,7 @@ def test_deathrattle():
 
 	# test soul of the forest: deathrattle in slots
 	assert not archer.has_deathrattle
-	sotf = game.current_player.give("EX1_158")
+	sotf = game.current_player.give("VAN_EX1_158")
 	sotf.play()
 	assert len(archer.buffs) == 1
 	assert archer.buffs[0].has_deathrattle
@@ -327,7 +327,7 @@ def test_divine_shield():
 	game.end_turn()
 
 	# test spell damage events with Divine Shield
-	gurubashi = game.player1.summon("EX1_399")
+	gurubashi = game.player1.summon("VAN_EX1_399")
 	assert gurubashi.atk == 2
 	assert gurubashi.health == 7
 	assert not gurubashi.divine_shield

@@ -28,7 +28,7 @@ class EX1_091:
 	play = Steal(TARGET)
 
 
-class EX1_335:
+class VAN_EX1_335:
 	"""Lightspawn"""
 	update = Refresh(SELF, {GameTag.ATK: lambda self, i: self.health}, priority=100)
 

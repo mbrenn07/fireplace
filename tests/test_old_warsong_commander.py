@@ -83,7 +83,7 @@ def test_old_warsong_commander_faceless_manipulator_buffed():
 	game.player1.give(WARSONG_COMMANDER).play()
 	game.end_turn()
 
-	gurubashi = game.player2.give("EX1_399")
+	gurubashi = game.player2.give("VAN_EX1_399")
 	gurubashi.play()
 	game.player2.give(MOONFIRE).play(target=gurubashi)
 	assert gurubashi.atk == 5
@@ -92,7 +92,7 @@ def test_old_warsong_commander_faceless_manipulator_buffed():
 
 	faceless = game.player1.give("EX1_564")
 	faceless.play(target=gurubashi)
-	copy = game.player1.field.filter(id="EX1_399")[0]
+	copy = game.player1.field.filter(id="VAN_EX1_399")[0]
 	assert copy == gurubashi
 	assert not copy.charge
 
@@ -114,7 +114,7 @@ def test_old_warsong_commander_lightspawn():
 	# test 11 - Warsong, then Lightspawn
 	game = prepare_game()
 	game.player1.give(WARSONG_COMMANDER).play()
-	lightspawn = game.player1.give("EX1_335")
+	lightspawn = game.player1.give("VAN_EX1_335")
 	lightspawn.play()
 	assert not lightspawn.charge
 

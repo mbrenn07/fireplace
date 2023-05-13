@@ -35,7 +35,7 @@ class EX1_414:
 EX1_414e = buff(atk=6)
 
 
-class EX1_603:
+class VAN_EX1_603:
 	"""Cruel Taskmaster"""
 	requirements = {
 		PlayReq.REQ_MINION_TARGET: 0,

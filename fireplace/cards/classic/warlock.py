@@ -30,7 +30,7 @@ class EX1_301:
 	play = GainEmptyMana(CONTROLLER, -1)
 
 
-class EX1_304:
+class VAN_EX1_304:
 	"""Void Terror"""
 	play = (
 		Buff(SELF, "EX1_304e", atk=ATK(SELF_ADJACENT), max_health=CURRENT_HEALTH(SELF_ADJACENT)),
