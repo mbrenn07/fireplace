@@ -381,7 +381,7 @@ def test_bane_of_doom():
 def test_baron_geddon():
 	game = prepare_game()
 
-	geddon1 = game.player1.give("EX1_249")
+	geddon1 = game.player1.give("VAN_EX1_249")
 	wisp = game.player1.give(WISP)
 	geddon1.play()
 	wisp.play()
@@ -395,7 +395,7 @@ def test_baron_geddon():
 	assert game.player1.hero.health == 28
 	assert game.player2.hero.health == 28
 
-	geddon2 = game.player2.give("EX1_249")
+	geddon2 = game.player2.give("VAN_EX1_249")
 	geddon2.play()
 	assert geddon1.health == 5
 	assert geddon2.health == 5

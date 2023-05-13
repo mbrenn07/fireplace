@@ -89,7 +89,7 @@ class EX1_116:
 	play = Summon(OPPONENT, "EX1_116t") * 2
 
 
-class EX1_249:
+class VAN_EX1_249:
 	"""Baron Geddon"""
 	events = OWN_TURN_END.on(Hit(ALL_CHARACTERS - SELF, 2))
 

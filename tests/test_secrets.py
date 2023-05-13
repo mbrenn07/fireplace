@@ -146,7 +146,7 @@ def test_duplicate_full_hand():
 
 def test_eaglehorn_bow():
 	game = prepare_game()
-	bow = game.player1.give("EX1_536")
+	bow = game.player1.give("EX1_536e")
 	icebarrier = game.player1.give("EX1_289")
 	bow.play()
 	assert bow.durability == 2

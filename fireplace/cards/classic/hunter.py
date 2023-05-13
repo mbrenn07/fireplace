@@ -211,7 +211,7 @@ class DS1_188:
 	update = Refresh(FRIENDLY_HERO, {GameTag.IMMUNE_WHILE_ATTACKING: True})
 
 
-class EX1_536:
+class EX1_536e:
 	"""Eaglehorn Bow"""
 	events = Reveal(FRIENDLY_SECRETS).on(Buff(SELF, "EX1_536e"))
 

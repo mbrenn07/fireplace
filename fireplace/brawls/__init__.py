@@ -51,7 +51,7 @@ class BlackrockShowdownBrawl(Game):
 		"CS2_032", "CS2_032",
 		"CS2_042", "CS2_042",
 		"EX1_241", "EX1_241",
-		"EX1_249",
+		"VAN_EX1_249",
 		"EX1_319", "EX1_319",
 		"EX1_620", "EX1_620",
 	], "TBA01_1")
