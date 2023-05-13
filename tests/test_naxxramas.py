@@ -44,7 +44,7 @@ def test_baron_rivendare_soul_of_the_forest():
 	rivendare.play()
 	wisp = game.player1.give(WISP)
 	wisp.play()
-	sotf = game.player1.give("EX1_158")
+	sotf = game.player1.give("VAN_EX1_158")
 	sotf.play()
 	assert len(game.player1.field) == 2
 	assert wisp.has_deathrattle
