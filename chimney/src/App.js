@@ -32,7 +32,12 @@ const App = () => {
           setCurrentRunProgress((oldProgress) => oldProgress + data.data.length);
         }
         if (url === "/newActions") {
-          const readableActions = data.data.map((element) => element.formatted);
+          const readableActions = [];
+          data.data.forEach((element) => {
+            if (element.formatted !== "Empty stack, refreshing auras and processing deaths") {
+              readableActions.push(element.formatted);
+            }
+          });
           setAllActions((oldActions) => {
             if (readableActions.length === 0){
               return oldActions;
@@ -107,9 +112,6 @@ const App = () => {
           <Box sx={{ height: "80vh", width: "90%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
             <Stack>
               {allActions.map((action) => {
-                if (action === "Empty stack, refreshing auras and processing deaths") {
-                  return null;
-                }
                 if (action === "Game completed normally.") {
                   return (
                     <Box key={action} sx={{m: 1, display: "flex", alignItems: "right", justifyContent: "right"}}>
