@@ -4,14 +4,23 @@ from fireplace.utils import (CardClass, random_draft)
 from .agent import (RandomAgent, Ember)
 import random
 
-def setup_game(agent1_type, agent2_type):
-	class1 = CardClass.MAGE
-	deck1 = random_draft(class1)
-	player1 = Player("Player1", deck1, CardClass.MAGE.default_hero)
+PLAYER_CLASSES = {"Druid": CardClass.DRUID, "Hunter": CardClass.HUNTER, "Mage": CardClass.MAGE,
+		 "Paladin": CardClass.PALADIN, "Priest": CardClass.PRIEST, "Rogue": CardClass.ROGUE,
+		 "Shaman": CardClass.SHAMAN, "Warlock": CardClass.WARLOCK, "Warrior": CardClass.WARRIOR}
 
-	class2 = CardClass.WARRIOR
+def setup_game(agent1_type, agent2_type, player1Class, player2Class):
+	if (player1Class == "Random"):
+		player1Class = random.choice(list(PLAYER_CLASSES.keys()))
+	if (player2Class == "Random"):
+		player2Class = random.choice(list(PLAYER_CLASSES.keys()))
+
+	class1 = PLAYER_CLASSES[player1Class]
+	deck1 = random_draft(class1)
+	player1 = Player("Player1", deck1, class1.default_hero)
+
+	class2 = PLAYER_CLASSES[player2Class]
 	deck2 = random_draft(class2)
-	player2 = Player("Player2", deck2, CardClass.WARRIOR.default_hero)
+	player2 = Player("Player2", deck2, class2.default_hero)
 
 	agent1 = agent1_type(player1)
 	agent2 = agent2_type(player2)
@@ -40,8 +49,8 @@ def play_turn(game, agents):
 	return game # not necessary
 
 
-def play_full_game(agent1_type, agent2_type):
-	game, (agent1, agent2) = setup_game(agent1_type, agent2_type)
+def play_full_game(agent1_type, agent2_type, player1Class, player2Class):
+	game, (agent1, agent2) = setup_game(agent1_type, agent2_type, player1Class, player2Class)
 
 	# random mulligan
 	for player in game.players:

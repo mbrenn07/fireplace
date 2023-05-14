@@ -15,21 +15,21 @@ cors = CORS(app)
 sys.path.append("..")
 playerTypes = {"RandomAgent": RandomAgent, "Ember": Ember, "EndTurnAgent": EndTurnAgent}
 
-def test_full_game(agent1Type, agent2Type):
+def test_full_game(agent1Type, agent2Type, player1Class, player2Class):
 	try:
-		play_full_game(playerTypes[agent1Type], playerTypes[agent2Type])
+		play_full_game(playerTypes[agent1Type], playerTypes[agent2Type], player1Class, player2Class)
 	except GameOver:
 		log.info("Game completed normally.")
 
-@app.route('/runGames/<numGames>/<agent1Type>/<agent2Type>', methods = ['GET'])
-def main(numGames, agent1Type, agent2Type):
+@app.route('/runGames/<numGames>/<agent1Type>/<agent2Type>/<player1Class>/<player2Class>', methods = ['GET'])
+def main(numGames, agent1Type, agent2Type, player1Class, player2Class):
 	numgames = int(numGames)
 	cards.db.initialize()
 	if numgames > 1:
 		for i in range(int(numgames)):
-			test_full_game(agent1Type, agent2Type)
+			test_full_game(agent1Type, agent2Type, player1Class, player2Class)
 	else:
-		test_full_game(agent1Type, agent2Type)
+		test_full_game(agent1Type, agent2Type, player1Class, player2Class)
 	return jsonify(playedGames)
 
 @app.route('/newGames', methods = ['GET'])
