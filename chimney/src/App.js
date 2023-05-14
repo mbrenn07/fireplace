@@ -1,16 +1,22 @@
 import './App.css';
 import '@fontsource/roboto/400.css';
-import { Box, TextField, Button, Stack, Typography, CssBaseline } from "@mui/material";
+import { Box, TextField, Button, Stack, Typography, CssBaseline, FormControl, FormLabel, Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import LinearWithValueLabel from './LinearProgressWithLabel';
+
+//TODO:
+// - add hero selection
+// - add plotly pie chart for player winrate
 
 const App = () => {
   const [numGames, setNumGames] = useState(0);
   const [currentRunCap, setCurrentRunCap] = useState(0);
   const [currentRunProgress, setCurrentRunProgress] = useState(0);
   const [allActions, setAllActions] = useState([]);
+  const [agentType1, setAgentType1] = useState("Ember");
+  const [agentType2, setAgentType2] = useState("Ember");
 
   const MAX_CONSOLE_ITEMS = 10000;
 
@@ -39,7 +45,7 @@ const App = () => {
             }
           });
           setAllActions((oldActions) => {
-            if (readableActions.length === 0){
+            if (readableActions.length === 0) {
               return oldActions;
             }
             const newCombinedActions = oldActions.concat(readableActions);
@@ -59,7 +65,7 @@ const App = () => {
   const runGames = () => {
     setCurrentRunCap(parseInt(numGames));
     setCurrentRunProgress(0);
-    basicGetRequest("/runGames/" + numGames);
+    basicGetRequest("/runGames/" + numGames + "/" + agentType1 + "/" + agentType2);
   }
 
   const getNewGames = async () => {
@@ -84,7 +90,7 @@ const App = () => {
       <CssBaseline />
       <Box sx={{ mt: 1 }}>
         <Stack>
-          <Stack sx={{ mt: 1 }} direction={"row"} spacing={1}>
+          <Stack sx={{ m: 1 }} direction={"row"} spacing={1}>
             <Button variant="contained" onClick={runGames} disabled={currentRunProgress !== currentRunCap}> Simulate Games </Button>
             <TextField
               id="numGames"
@@ -93,36 +99,63 @@ const App = () => {
               type="number"
               value={numGames}
               onChange={(e) => setNumGames(e.target.value)} />
-            <Button variant="contained" onClick={getNewGames}> Get New Games </Button>
-            <Button variant="contained" onClick={getNewActions}> Get New Actions </Button>
           </Stack>
           <LinearWithValueLabel variant="determinate" value={(currentRunProgress * 100) / currentRunCap} />
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {currentRunCap === currentRunProgress && (
-              <Box sx={{ outline: "solid 2px black", borderRadius: "5px", backgroundColor: "orange" }}>
-                <Typography variant="h4" sx={{ m: 1 }}>Simulation currently inactive</Typography>
+          <Stack direction={"row"}>
+            <FormControl>
+              <FormLabel id="agent1Selector">Agent 1 Model</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                value={agentType1}
+                onChange={(e) => setAgentType1(e.target.value)}
+                name="radio-buttons-group"
+              >
+                <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
+                <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
+                <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
+              </RadioGroup>
+            </FormControl>
+            <FormControl>
+              <FormLabel id="agent2Selector">Agent 2 Model</FormLabel>
+              <RadioGroup
+                dir="row"
+                aria-labelledby="demo-radio-buttons-group-label"
+                value={agentType2}
+                onChange={(e) => setAgentType2(e.target.value)}
+                name="radio-buttons-group2"
+              >
+                <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
+                <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
+                <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
+              </RadioGroup>
+            </FormControl>
+            <Box sx={{ height: "80vh", width: "80%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
+              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {currentRunCap === currentRunProgress && (
+                  <Box sx={{ borderRadius: "5px", backgroundColor: "orange" }}>
+                    <Typography variant="h4" sx={{ m: 1 }}>Simulation currently inactive</Typography>
+                  </Box>
+                )}
+                {currentRunProgress === 0 && currentRunCap !== currentRunProgress && (
+                  <Box sx={{ borderRadius: "5px", backgroundColor: "green" }}>
+                    <Typography variant="h4" sx={{ m: 1 }}>Initializing</Typography>
+                  </Box>
+                )}
               </Box>
-            )}
-            {currentRunProgress === 0 && currentRunCap !== currentRunProgress && (
-              <Box sx={{ outline: "solid 2px black", borderRadius: "5px", backgroundColor: "green" }}>
-                <Typography variant="h4" sx={{ m: 1 }}>Initializing</Typography>
-              </Box>
-            )}
-          </Box>
-          <Box sx={{ height: "80vh", width: "90%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
-            <Stack>
-              {allActions.map((action) => {
-                if (action === "Game completed normally.") {
-                  return (
-                    <Box key={action} sx={{m: 1, display: "flex", alignItems: "right", justifyContent: "right"}}>
-                      <Typography sx={{ color: "#7feb9b" }} variant="h3">Game Completed</Typography>
-                    </Box>
-                  )
-                }
-                return <Typography key={action} variant="body1">{action}</Typography>
-              })}
-            </Stack>
-          </Box>
+              <Stack>
+                {allActions.map((action) => {
+                  if (action === "Game completed normally.") {
+                    return (
+                      <Box key={action} sx={{ m: 1, display: "flex", alignItems: "right", justifyContent: "right" }}>
+                        <Typography sx={{ color: "#7feb9b" }} variant="h3">Game Completed</Typography>
+                      </Box>
+                    )
+                  }
+                  return <Typography key={action} variant="body1">{action}</Typography>
+                })}
+              </Stack>
+            </Box>
+          </Stack>
         </Stack>
       </Box>
     </ThemeProvider>

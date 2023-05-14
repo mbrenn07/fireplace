@@ -1,1 +1,1 @@
-#from .selfplay import play_full_game
+from .selfplay import *
