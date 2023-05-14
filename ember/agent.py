@@ -29,6 +29,7 @@ class Agent(): # Abstract class for agents
         ended_turn = True
         return ended_turn
 
+
 class RandomAgent(Agent):
 
     def __init__(self, player):
@@ -64,6 +65,15 @@ class RandomAgent(Agent):
             if character.can_attack():
                 character.attack(random.choice(character.targets))
 
+class EndTurnAgent(Agent):
+
+    def __init__(self, player):
+        self.player = player
+
+    def move(self): # Always ends turn
+        return True
+
+
 class Ember(Agent):
 
     def __init__(self, player):
@@ -71,5 +81,5 @@ class Ember(Agent):
         # TODO: Load model
 
     def move(self):
-        # TODO: Get output of model and parse it into its moves
+        # TODO: Get output of model, parse it into its move, and do the move
         return True
