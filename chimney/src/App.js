@@ -171,20 +171,27 @@ const App = () => {
       <CssBaseline />
       <Box sx={{ mt: 1 }}>
         <Stack>
-          <Stack sx={{ m: 1 }} direction={"row"} spacing={1}>
-            <Button variant="contained" onClick={runGames} disabled={currentRunProgress !== currentRunCap}> Simulate Games </Button>
-            <TextField
-              id="numGames"
-              label="Num Games"
-              variant="outlined"
-              type="number"
-              value={numGames}
-              onChange={(e) => setNumGames(e.target.value)} />
-            <Button variant="contained" color="error" onClick={purgeData} disabled={currentRunProgress !== currentRunCap}> Reset Simulation </Button>
-          </Stack>
-          <LinearWithValueLabel variant="determinate" value={(currentRunProgress * 100) / currentRunCap} />
-          <Grid container direction={"row"} columns={3}>
-            <Grid item xs={1}>
+          <Grid container wrap="nowrap" columns={8}>
+            <Grid item xs={true}>
+              <Stack sx={{ m: 1 }} direction={"row"} spacing={1}>
+                <Button sx={{ height: "56px" }} variant="contained" onClick={runGames} disabled={currentRunProgress !== currentRunCap}> Simulate Games </Button>
+                <TextField
+                  id="numGames"
+                  label="Num Games"
+                  variant="outlined"
+                  type="number"
+                  value={numGames}
+                  onChange={(e) => setNumGames(e.target.value)} />
+                <Button sx={{ height: "56px" }} variant="contained" color="error" onClick={purgeData} disabled={currentRunProgress !== currentRunCap}> Reset Simulation </Button>
+              </Stack>
+              <LinearWithValueLabel variant="determinate" value={(currentRunProgress * 100) / currentRunCap} />
+            </Grid>
+            <Grid item xs={"auto"} sx={{ mr: 2, height: "100px" }}>
+              <h1 style={{margin: 0, marginTop: -25, marginLeft: -275}}>Chimney</h1>
+            </Grid>
+          </Grid>
+          <Grid container direction={"row"} columns={12} wrap='nowrap'>
+            <Grid item xs={true} sx={{ overflow: "hide" }}>
               <Stack spacing={1}>
                 <Stack direction={"row"}>
                   <Stack>
@@ -227,7 +234,7 @@ const App = () => {
                       type: "pie",
                     },
                   ]}
-                  layout={{ height: 288, width: 600, title: 'Aggregate Model Winrate', legend: { orientation: 'h', side: 'top' } }}
+                  layout={{ height: 260, width: 600, title: 'Aggregate Model Winrate', legend: { orientation: 'h', side: 'top' } }}
                 />
                 <Plot
                   data={[
@@ -246,12 +253,12 @@ const App = () => {
                       mode: 'lines+markers',
                     },
                   ]}
-                  layout={{ height: 288, width: 600, title: 'Model Winrate over Time', legend: { orientation: 'h', side: 'top' } }}
+                  layout={{ height: 260, width: 600, title: 'Model Winrate over Time', legend: { orientation: 'h', side: 'top' } }}
                 />
               </Stack>
             </Grid>
-            <Grid item xs={true}>
-              <Box sx={{ height: "86vh", width: "95%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
+            <Grid item xs={9}>
+              <Box sx={{ height: "752px", width: "95%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {currentRunCap === currentRunProgress && (
                     <Box sx={{ borderRadius: "5px", backgroundColor: "orange" }}>
