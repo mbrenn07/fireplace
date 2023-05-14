@@ -1,4 +1,4 @@
-from ..fireplace.player import Player
+from fireplace.player import Player
 import random
 
 class Agent(): # Abstract class for agents
@@ -29,14 +29,47 @@ class Agent(): # Abstract class for agents
         ended_turn = True
         return ended_turn
 
+class RandomAgent(Agent):
 
+    def __init__(self, player):
+        self.player = player
+    
+    def move(self):
+        player = self.player
+        heropower = player.hero.power
+        if heropower.is_usable() and random.random() < 0.1:
+            if heropower.requires_target():
+                heropower.use(target=random.choice(heropower.targets))
+            else:
+                heropower.use()
 
-    class Ember(Agent):
+        # iterate over our hand and play whatever is playable
+        for card in player.hand:
+            if card.is_playable() and random.random() < 0.5:
+                target = None
+                if card.must_choose_one:
+                    card = random.choice(card.choose_cards)
+                if card.requires_target():
+                    target = random.choice(card.targets)
+                print("Playing %r on %r" % (card, target))
+                card.play(target=target)
 
-        def __init__(self, player):
-            self.player = player
-            # TODO: Load model
+                if player.choice:
+                    choice = random.choice(player.choice.cards)
+                    print("Choosing card %r" % (choice))
+                    player.choice.choose(choice)
 
-        def move(self):
-            # TODO: Get output of model and parse it into its moves
-            return True
+        # Randomly attack with whatever can attack
+        for character in player.characters:
+            if character.can_attack():
+                character.attack(random.choice(character.targets))
+
+class Ember(Agent):
+
+    def __init__(self, player):
+        self.player = player
+        # TODO: Load model
+
+    def move(self):
+        # TODO: Get output of model and parse it into its moves
+        return True
