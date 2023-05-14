@@ -1,10 +1,10 @@
-from ..fireplace.game import Game
-from ..fireplace.player import Player
-from ..fireplace.utils import (CardClass, random_draft)
-from .agent import Agent
+from fireplace.game import Game
+from fireplace.player import Player
+from fireplace.utils import (CardClass, random_draft)
+from .agent import (RandomAgent, Ember)
 import random
 
-def setup_game():
+def setup_game(agent1_type, agent2_type):
 	class1 = CardClass.MAGE
 	deck1 = random_draft(class1)
 	player1 = Player("Player1", deck1, CardClass.MAGE.default_hero)
@@ -13,8 +13,8 @@ def setup_game():
 	deck2 = random_draft(class2)
 	player2 = Player("Player2", deck2, CardClass.WARRIOR.default_hero)
 
-	agent1 = Agent(player1)
-	agent2 = Agent(player2)
+	agent1 = agent1_type(player1)
+	agent2 = agent2_type(player2)
 
 	game = Game(players=(player1, player2))
 	game.start()
@@ -40,8 +40,8 @@ def play_turn(game, agents):
 	return game # not necessary
 
 
-def play_full_game():
-	game, (agent1, agent2) = setup_game()
+def play_full_game(agent1_type, agent2_type):
+	game, (agent1, agent2) = setup_game(agent1_type, agent2_type)
 
 	# random mulligan
 	for player in game.players:
