@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import LinearWithValueLabel from './LinearProgressWithLabel';
+import Plot from 'react-plotly.js';
 
 //TODO:
 // - add hero selection
@@ -17,6 +18,8 @@ const App = () => {
   const [allActions, setAllActions] = useState([]);
   const [agentType1, setAgentType1] = useState("Ember");
   const [agentType2, setAgentType2] = useState("Ember");
+  const [player1Losses, setPlayer1Losses] = useState(0);
+  const [player2Losses, setPlayer2Losses] = useState(0);
 
   const MAX_CONSOLE_ITEMS = 10000;
 
@@ -43,6 +46,10 @@ const App = () => {
             if (element.formatted !== "Empty stack, refreshing auras and processing deaths") {
               readableActions.push(element.formatted);
             }
+            if (element.message === "%r loses") {
+              element.arguments.includes("Player1") ? setPlayer1Losses((oldLosses) => oldLosses + 1)
+                : setPlayer2Losses((oldLosses) => oldLosses + 1);
+            }
           });
           setAllActions((oldActions) => {
             if (readableActions.length === 0) {
@@ -55,7 +62,6 @@ const App = () => {
             return newCombinedActions;
           });
         }
-        console.log(data);
       })
       .catch((error) => {
         console.error(error);
@@ -102,33 +108,47 @@ const App = () => {
           </Stack>
           <LinearWithValueLabel variant="determinate" value={(currentRunProgress * 100) / currentRunCap} />
           <Stack direction={"row"}>
-            <FormControl>
-              <FormLabel id="agent1Selector">Agent 1 Model</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                value={agentType1}
-                onChange={(e) => setAgentType1(e.target.value)}
-                name="radio-buttons-group"
-              >
-                <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
-                <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
-                <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
-              </RadioGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel id="agent2Selector">Agent 2 Model</FormLabel>
-              <RadioGroup
-                dir="row"
-                aria-labelledby="demo-radio-buttons-group-label"
-                value={agentType2}
-                onChange={(e) => setAgentType2(e.target.value)}
-                name="radio-buttons-group2"
-              >
-                <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
-                <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
-                <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
-              </RadioGroup>
-            </FormControl>
+            <Stack>
+              <Box>
+                <FormControl>
+                  <FormLabel id="agent1Selector">Agent 1 Model</FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={agentType1}
+                    onChange={(e) => setAgentType1(e.target.value)}
+                    name="radio-buttons-group"
+                  >
+                    <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
+                    <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
+                    <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
+                  </RadioGroup>
+                </FormControl>
+                <FormControl>
+                  <FormLabel id="agent2Selector">Agent 2 Model</FormLabel>
+                  <RadioGroup
+                    dir="row"
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={agentType2}
+                    onChange={(e) => setAgentType2(e.target.value)}
+                    name="radio-buttons-group2"
+                  >
+                    <FormControlLabel value="Ember" control={<Radio />} label="Ember" />
+                    <FormControlLabel value="RandomAgent" control={<Radio />} label="Random Agent" />
+                    <FormControlLabel value="EndTurnAgent" control={<Radio />} label="End Turn Agent" />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+              <Plot
+                data={[
+                  {
+                    values: [player2Losses, player1Losses],
+                    labels: ["Player 1 Winrate", "Player 2 Winrate"],
+                    type: "pie",
+                  },
+                ]}
+                layout={{ width: 320, height: 240, title: 'Model Winrate'}}
+              />
+            </Stack>
             <Box sx={{ height: "80vh", width: "80%", backgroundColor: "grey", margin: "auto", mt: 1, overflow: "auto" }}>
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {currentRunCap === currentRunProgress && (

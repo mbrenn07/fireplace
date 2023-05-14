@@ -11,6 +11,7 @@ from .entity import Entity
 from .exceptions import GameOver
 from .managers import GameManager
 from .utils import CardList
+from .logging import log
 
 
 class BaseGame(Entity):
@@ -173,6 +174,7 @@ class BaseGame(Entity):
 			if player.playstate in (PlayState.CONCEDED, PlayState.DISCONNECTED):
 				player.playstate = PlayState.LOSING
 			if player.playstate == PlayState.LOSING:
+				log.info("%r loses", player)
 				gameover = True
 
 		if gameover:
